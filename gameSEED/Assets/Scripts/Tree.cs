@@ -2,7 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI; // Needed for the Slider component
 using System.Collections;
-
+using UnityEngine.SceneManagement;
+using System.Linq;
 public class Tree : MonoBehaviour
 {
     [Header("Tree Stats")]
@@ -76,7 +77,7 @@ public class Tree : MonoBehaviour
 
         if(health == 0)
         {
-            SceneManagement.LoadScene("GameOverScene");
+            SceneManager.LoadScene("GameOverScene");
         }
 
         if(health > maxHealth){
