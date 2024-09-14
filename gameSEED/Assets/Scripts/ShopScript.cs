@@ -54,7 +54,8 @@ public class ShopScript : MonoBehaviour
 
     void Start()
     {
-        //Shop.SetActive(false);
+        Next.SetActive(false);
+        prev.SetActive(false);
     }
 
     public void nextPage()
