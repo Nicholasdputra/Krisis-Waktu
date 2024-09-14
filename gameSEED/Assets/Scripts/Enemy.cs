@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     public string toType1;  // Word associated with this enemy
     public string toType2;
     public TextMeshProUGUI displayWord; //what will actually be displayed on the enemy
-
+    public Animator animator;
     void Start()
     {
         toType2 = null;
@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Tree")
         {
             canMove = false;
-            
+            animator.SetBool("attack", true);
             if (treeScript.isMitigatingDamage)
             {
                 Debug.Log("Mitigated damage");
@@ -123,7 +123,9 @@ public class Enemy : MonoBehaviour
             enemySpawnScript.spawnedEnemies.Remove(this); // Remove from active enemy list
             treeScript.health -= damageToTree; // Reduce tree health based on the enemy's damage
             treeScript.gold += goldDrop; // Add gold to the tree
+            animator.SetBool("dead", true);
             Destroy(gameObject);  // Destroy the enemy after hitting the tree
+
         }
     }
 }

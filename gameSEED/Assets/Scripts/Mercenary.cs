@@ -12,7 +12,8 @@ public class Mercenary : MonoBehaviour
     bool isWaiting = false;
     public bool isVerdandi;
     public bool isSkuld;
-
+    public Animator animator;
+    private bool isFacingRight = true;
     private void Start()
     {
         mainCamera = Camera.main;  // Get reference to the main camera
@@ -84,6 +85,7 @@ public class Mercenary : MonoBehaviour
             if (distanceToTarget <= attackRange)
             {
                 if(!isWaiting){
+                    animator.SetBool("attack", true);
                     Coroutine waitCoroutine = StartCoroutine(Wait());
                 }
             }
@@ -96,14 +98,44 @@ public class Mercenary : MonoBehaviour
         }
     }
 
+    private void FlipSprite()
+    {
+        // Flip the sprite by inverting the x scale
+        isFacingRight = !isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
+    }
     private IEnumerator Wait()
     {
         isWaiting = true;
-        yield return new WaitForSeconds(3f);
+        if (targetEnemy != null)
+        {
+            bool enemyIsBehind = (targetEnemy.transform.position.x < transform.position.x && isFacingRight) ||
+                                 (targetEnemy.transform.position.x > transform.position.x && !isFacingRight);
+
+            if (enemyIsBehind)
+            {
+                FlipSprite(); // Flip the sprite to face the enemy
+            }
+        }
+        yield return new WaitForSeconds(1f);
         spawnerScript.spawnedEnemies.Remove(targetEnemy);    // Remove from active enemy list
         Destroy(targetEnemy.gameObject);       // Destroy enemy object
         spawnerScript.treeScript.gold += targetEnemy.goldDrop / 2;           // Add gold to player's gold count
         spawnerScript.currentCount--;
+        if (targetEnemy != null)
+        {
+            bool enemyIsBehindAfterAttack = (targetEnemy.transform.position.x < transform.position.x && !isFacingRight) ||
+                                            (targetEnemy.transform.position.x > transform.position.x && isFacingRight);
+
+            if (enemyIsBehindAfterAttack)
+            {
+                FlipSprite(); // Flip the sprite back to its original orientation
+            }
+        }
+        animator.SetBool("attack", false);
+        yield return new WaitForSeconds(7f);
         isWaiting = false;
     }
 }
