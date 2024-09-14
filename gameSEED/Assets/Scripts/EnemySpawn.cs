@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using System.Runtime.CompilerServices;
 
 public class EnemySpawn : MonoBehaviour
 {
@@ -68,6 +69,8 @@ public class EnemySpawn : MonoBehaviour
         {
             treeScript.shopPanel.SetActive(true);
         }
+        Debug.Log("CurrentCount = " + currentCount);
+        Debug.Log("enemiesToSpawnLeft = " + enemiesToSpawnLeft);
     }
 
     private void InitializePoolOfWords(){

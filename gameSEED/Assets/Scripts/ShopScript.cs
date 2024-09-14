@@ -11,7 +11,11 @@ public class ShopScript : MonoBehaviour
     public Tree treeScript;
 
     [Header("Object References")]
+    public GameObject Shop;
     public TextMeshProUGUI Gold;
+    public GameObject StatUpgrade;
+    public GameObject SkillUpgrade;
+    public GameObject MercenaryUpgrade;
 
     [Header("Buttons")]
     public GameObject buttonToUpgradeHP;
@@ -26,6 +30,9 @@ public class ShopScript : MonoBehaviour
     
     public GameObject buttonToUpgradeSlow;
 
+    public GameObject Next;
+    public GameObject prev;
+    public GameObject nextWave;
 
     [Header("Gold Costs")]
     public int goldForHP;
@@ -43,50 +50,97 @@ public class ShopScript : MonoBehaviour
     public int stunUpgradedAmount;
     public int mitigationUpgradedAmount;
     public int slowUpgradedAmount;
+    public int ShopPageIndex = 1;
 
     void Start()
     {
-        // shopPanel.SetActive(false);
+        //Shop.SetActive(false);
+    }
+
+    public void nextPage()
+    {
+        ShopPageIndex += 1;
+    }
+    public void prevPage()
+    {
+        ShopPageIndex -= 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(treeScript.gold > goldForHP){
-            buttonToUpgradeHP.SetActive(true);
-        } else{
-            buttonToUpgradeHP.SetActive(false);
-        }
+        // if(StatUpgrade.activeInHierarchy)
+        // {
+        //     Debug.Log("panel 1 on");
+        // }
 
-        if(treeScript.gold > goldForShield){
-            buttonToUpgradeShield.SetActive(true);
-        } else{
-            buttonToUpgradeShield.SetActive(false);
-        }   
+        if(enemySpawn.currentCount == 0 && enemySpawn.enemiesToSpawnLeft == 0)
+        {
+            Debug.Log("Shop Page Index = " + ShopPageIndex);
+            if(ShopPageIndex == 1)
+            {
+                Debug.Log("panel 1 on");
+                StatUpgrade.SetActive(true);
+                MercenaryUpgrade.SetActive(false);
+                SkillUpgrade.SetActive(false);
+                nextWave.SetActive(false);
+                Next.SetActive(true);
 
-        if(treeScript.gold > goldForLifesteal){
-            buttonToUpgradeLifesteal.SetActive(true);
-        } else{
-            buttonToUpgradeLifesteal.SetActive(false);
-        }
+                if(treeScript.gold > goldForHP){
+                    buttonToUpgradeHP.SetActive(true);
+                } else{
+                    buttonToUpgradeHP.SetActive(false);
+                }
 
-        if(treeScript.gold > goldForStun){
-            buttonToUpgradeStun.SetActive(true);
-        } else{
-            buttonToUpgradeStun.SetActive(false);
-        }
+                if(treeScript.gold > goldForShield){
+                    buttonToUpgradeShield.SetActive(true);
+                } else{
+                    buttonToUpgradeShield.SetActive(false);
+                }   
 
-        if(treeScript.gold > goldForMitigation){
-            buttonToUpgradeMitigation.SetActive(true);
-        } else{
-            buttonToUpgradeMitigation.SetActive(false);
-        }
+                if(treeScript.gold > goldForLifesteal){
+                    buttonToUpgradeLifesteal.SetActive(true);
+                } else{
+                    buttonToUpgradeLifesteal.SetActive(false);
+                }
 
-        if(treeScript.gold > goldForSlow){
-            buttonToUpgradeSlow.SetActive(true);
-        } else{
-            buttonToUpgradeSlow.SetActive(false);
-        }
+            }
+            if(ShopPageIndex == 2)
+            {
+                Debug.Log("panel 2 on");
+                StatUpgrade.SetActive(false);
+                SkillUpgrade.SetActive(true);
+                MercenaryUpgrade.SetActive(false);
+                nextWave.SetActive(false);
+                Next.SetActive(true);
+
+                if(treeScript.gold > goldForStun){
+                    buttonToUpgradeStun.SetActive(true);
+                } else{
+                buttonToUpgradeStun.SetActive(false);
+                }
+                if(treeScript.gold > goldForMitigation){
+                buttonToUpgradeMitigation.SetActive(true);
+                } else{
+                buttonToUpgradeMitigation.SetActive(false);
+                }
+
+                if(treeScript.gold > goldForSlow){
+                    buttonToUpgradeSlow.SetActive(true);
+                } else{
+                buttonToUpgradeSlow.SetActive(false);
+                }
+            }
+            if(ShopPageIndex == 3)
+            {
+                Debug.Log("panel 3 on");
+                StatUpgrade.SetActive(false);
+                SkillUpgrade.SetActive(false);
+                MercenaryUpgrade.SetActive(true);
+                nextWave.SetActive(true);
+                Next.SetActive(false);
+            }
+        }    
     }
 
     public void HPUpgrade(){
@@ -120,6 +174,8 @@ public class ShopScript : MonoBehaviour
             treeScript.health += upgradeAmountInt;
         }
     }
+
+
 
     public void UpgradeShield(){
         switch (shieldUpgradedAmount){
