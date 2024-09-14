@@ -5,16 +5,19 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public GameObject shopPanel;
     public int waveValue;
     public Tree treeScript;                     // Reference to the tree script
     public string typedWord;                    // what the player is typing
     public TextMeshProUGUI typedWordDisplay;    // display the typed word'
     public int enemiesToSpawnLeft;              // total number of enemies to spawn this round
     public int currentRound;                    // current round number
-    public int timerTillNextSpawn;   // timer for spawning enemies
+    public int timerTillNextSpawn;              // timer for spawning enemies
     [SerializeField] Transform[] spawnpoints;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] List<int> toSpawn;         // list of enemies to spawn (put in the ints for the categories)
@@ -23,7 +26,6 @@ public class EnemySpawn : MonoBehaviour
     public List<string> poolOfWords;  // list of all possible words
     public List<string>[] letterWords;  // list of all possible words
     public List<string> activeWords;
-    // public int[] laneCounter = {0, 0, 0, 0};  // Counter for each lane
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +33,6 @@ public class EnemySpawn : MonoBehaviour
         InitializePoolOfWords();
         SortPoolOfWords();
         currentRound = 1;
-        if (enemyPrefab == null)
-        {
-            Debug.LogError("Enemy Prefab is not assigned.");
-            return;
-        }
         //for testing because this is going to later be called only when you press a button to start a round, not at start
         Initialize();
         StartCoroutine(IncrementTimer());
@@ -44,6 +41,16 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(enemiesToSpawnLeft < 0)
+        {
+            enemiesToSpawnLeft = 0;
+        }
+
+        if(currentCount < 0)
+        {
+            currentCount = 0;
+        }
+
         typedWordDisplay.text = typedWord;  // Display the typed word
         //insert spawn condition here, like if current count < 4 or sth
         if (enemiesToSpawnLeft > 0 && currentCount < 4 || timerTillNextSpawn >= 5 && enemiesToSpawnLeft > 0)
@@ -69,8 +76,8 @@ public class EnemySpawn : MonoBehaviour
         {
             treeScript.shopPanel.SetActive(true);
         }
-        Debug.Log("CurrentCount = " + currentCount);
-        Debug.Log("enemiesToSpawnLeft = " + enemiesToSpawnLeft);
+        // Debug.Log("CurrentCount = " + currentCount);
+        // Debug.Log("enemiesToSpawnLeft = " + enemiesToSpawnLeft);
     }
 
     private void InitializePoolOfWords(){
@@ -106,7 +113,7 @@ public class EnemySpawn : MonoBehaviour
     }
 
     private void SortPoolOfWords(){
-        letterWords = new List<string>[9];  // Create an array of Lists for each word length (2 to 10 letters)
+        letterWords = new List<string>[15];  // Create an array of Lists for each word length (2 to 10 letters)
 
         // Initialize the lists in letterWords
         for (int i = 0; i < letterWords.Length; i++)
@@ -118,18 +125,18 @@ public class EnemySpawn : MonoBehaviour
         {
             int wordLength = word.Length;
             // Word length between 2 and 10
-            if (wordLength >= 2 && wordLength <= 10)
+            if (wordLength >= 3 && wordLength <= 14)
             {
                 letterWords[wordLength - 2].Add(word);
-                Debug.Log($"Added {word} to {wordLength}-letter words");
+                // Debug.Log($"Added {word} to {wordLength}-letter words");
             }
             else if(wordLength < 2)
             {
                 letterWords[0].Add(word);
             }
-            else if(wordLength > 10)
+            else if(wordLength > 14)
             {
-                letterWords[8].Add(word);
+                letterWords[12].Add(word);
             }
         }
     }
@@ -160,6 +167,7 @@ public class EnemySpawn : MonoBehaviour
                 randomInt = 1;
                 toSpawn.Add(randomInt);
             } else{
+                Debug.Log("waveValue is less than 1");
                 break;
             }
             waveValue -= randomInt;
@@ -167,59 +175,97 @@ public class EnemySpawn : MonoBehaviour
     }
     
     // Initialize round settings, call after the round starts
-    void Initialize()
+    public void Initialize()
     {
         currentCount = 0;
         treeScript.shield += treeScript.addShield;
-
+        shopPanel.SetActive(false);
         switch (currentRound)
         {
             //for example on what to put per round:
             case 1:
-                waveValue = 20;
+                waveValue = 10;
                 randomizeEnemyCategory(waveValue);
-                activeWords = letterWords[4];  // Example words
+                activeWords = letterWords[1];  // Example words
                 break;
                 
             case 2:
-                
+                waveValue = 15;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[2];
                 break;
             
             case 3:
+                waveValue = 20;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[3];
                 break;
             
             case 4:
+                waveValue = 25;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[4];
                 break;
 
             case 5:
+                waveValue = 30;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[5];
                 break;
 
             case 6:
+                waveValue = 35;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[6];
                 break;
 
             case 7:
+                waveValue = 40;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[7];
                 break;
             
             case 8:
+                waveValue = 45;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[8];
                 break;
             
             case 9:
+                waveValue = 50;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[9];
                 break;
 
             case 10:
+                waveValue = 55;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[10];
                 break;
             
             case 11:
+                waveValue = 60;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[11];
                 break; 
             
             case 12:
+                waveValue = 70;
+                randomizeEnemyCategory(waveValue);
+                activeWords = letterWords[12];
+                break;
+            
+            case 13:
+                SceneManager.LoadScene("WinScreen");
                 break;
 
             default:
                 break;
+                
         }
         enemiesToSpawnLeft = toSpawn.Count;
-        for(int i = 0; i < 4; i++){
+
+        for(int i = 0; i < 3; i++){
             SpawnEnemy();
         }
     }
@@ -277,7 +323,11 @@ public class EnemySpawn : MonoBehaviour
             Debug.LogError("Words list is empty.");
             return string.Empty;
         }
+        
         int randomWordIndex = Random.Range(0, activeWords.Count);
+        if(activeWords[randomWordIndex] == null){
+            Debug.Log("activeWords[randomWordIndex] is null");
+        }
         return activeWords[randomWordIndex];
     }
 

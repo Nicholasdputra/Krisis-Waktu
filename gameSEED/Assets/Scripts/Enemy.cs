@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     public Tree treeScript;
     public int lane;
     public int category;
-    private float speed;
+    public float speed;
     private bool canMove;
     private int damageToTree;
     public int goldDrop;
@@ -81,6 +81,7 @@ public class Enemy : MonoBehaviour
             if (treeScript.enemiesAreStunned == false)
             {
                 if(treeScript.enemiesAreSlowed){
+                    Debug.Log("Slowed enemy by " + treeScript.slowAmount + ", speed is now " + (1 - treeScript.slowAmount) * speed + " from " + speed);
                     transform.position += new Vector3((1 - treeScript.slowAmount) * -speed * Time.deltaTime, 0, 0);
                 } else{
                     transform.position += new Vector3(-speed * Time.deltaTime, 0, 0);
@@ -94,11 +95,15 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Tree")
         {
             canMove = false;
-            Debug.Log("Tree hit for " + damageToTree + " damage");
             
-            if(treeScript.isMitigatingDamage){
+            if (treeScript.isMitigatingDamage)
+            {
+                Debug.Log("Mitigated damage");
+                Debug.Log($"Original damageToTree: {damageToTree}");
+                Debug.Log($"Mitigation amount: {treeScript.mitigationAmount}");
                 damageToTree -= treeScript.mitigationAmount;
-            } 
+                Debug.Log($"New damageToTree: {damageToTree}");
+            }
 
             if(treeScript.shield != 0){
                 if(treeScript.shield < damageToTree){
@@ -113,6 +118,7 @@ public class Enemy : MonoBehaviour
             if(damageToTree < 0){
                 damageToTree = 0;
             }
+            Debug.Log("Tree hit for " + damageToTree + " damage");
             enemySpawnScript.currentCount--; // Reduce the enemy count
             enemySpawnScript.spawnedEnemies.Remove(this); // Remove from active enemy list
             treeScript.health -= damageToTree; // Reduce tree health based on the enemy's damage

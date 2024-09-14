@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Mercenary : MonoBehaviour
 {
-    [SerializeField] EnemySpawn spawnerScript;
+    public EnemySpawn spawnerScript;
     public float detectRange = 20f;   // Range to detect enemies
     public float attackRange = 2f;    // Range at which the mercenary attacks the enemy
     public float moveSpeed = 5f;      // Speed at which the mercenary moves
     private Enemy targetEnemy;
     private Camera mainCamera;
     bool isWaiting = false;
-    
+    public bool isVerdandi;
+    public bool isSkuld;
+
     private void Start()
     {
         mainCamera = Camera.main;  // Get reference to the main camera
@@ -41,11 +43,23 @@ public class Mercenary : MonoBehaviour
             if (IsEnemyOnScreen(enemy))
             {
                 float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                
 
-                if (distanceToEnemy < closestDistance)
+                if (isSkuld && enemy.category == 1)
                 {
-                    closestDistance = distanceToEnemy;
-                    targetEnemy = enemy;
+                    if (distanceToEnemy < closestDistance)
+                    {
+                        closestDistance = distanceToEnemy;
+                        targetEnemy = enemy;
+                    } 
+                }
+
+                if(isVerdandi && enemy.category == 2){
+                    if (distanceToEnemy < closestDistance)
+                    {
+                        closestDistance = distanceToEnemy;
+                        targetEnemy = enemy;
+                    }
                 }
             }
         }
@@ -85,7 +99,7 @@ public class Mercenary : MonoBehaviour
     private IEnumerator Wait()
     {
         isWaiting = true;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         spawnerScript.spawnedEnemies.Remove(targetEnemy);    // Remove from active enemy list
         Destroy(targetEnemy.gameObject);       // Destroy enemy object
         spawnerScript.treeScript.gold += targetEnemy.goldDrop / 2;           // Add gold to player's gold count

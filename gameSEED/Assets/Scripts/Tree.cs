@@ -5,39 +5,52 @@ using System.Collections;
 
 public class Tree : MonoBehaviour
 {
+    [Header("Tree Stats")]
     public int gold;
     public int health;
     public int maxHealth;
+    
+    [Header("References to UI Elements")]
     public Slider treeHealthSlider; // Reference to the slider representing the tree's health
     public TextMeshProUGUI healthText; // Reference to the text displaying the tree's health
-    public GameObject spawners; // Reference to the spawners object
+    public TextMeshProUGUI goldText; // Reference to the text displaying the tree's gold
     public EnemySpawn enemySpawnerScript; // Reference to the EnemySpawner script
-    public ShopScript shopScript;
+    public ShopScript shopScript; // Reference to the ShopScript
 
-    [Header("Upgrade Related")]
+    [Header("References to Other Game Objects")]
+    public GameObject spawners; // Reference to the spawners object
     public GameObject shopPanel;
+
+    [Header("Tree Attribute Upgrades")]
     public int lifeSteal = 0;
     public int shield = 0;
     public int addShield = 0;
+
+    [Header("Stun")]
     public float stunDuration;
     public bool enemiesAreStunned = false;
     public int stunCooldown;
+    public bool canStun = true;
 
-    public int slowDuration;
+    [Header("Slow")]
+    public int slowDuration = 7;
     public bool enemiesAreSlowed = false;
-    public float slowAmount = 0;
+    public float slowAmount = 0f;
     public int slowCooldown;
+    public bool canSlow = true;
 
-    public int mitigationDuration;
-    public int mitigationAmount;
+    [Header("Mitigation")]
+    public int mitigationDuration = 5;
+    public int mitigationAmount = 0;
     public bool isMitigatingDamage = false;
     public int mitigationCooldown;
+    public bool canMitigate = true;
 
     [Header("Skill Buttons")]
     public GameObject slow;
     public GameObject stun;
     public GameObject mitigate;
-    
+
     public TextMeshProUGUI slowCooldownText;
     public TextMeshProUGUI stunCooldownText;
     public TextMeshProUGUI mitigationCooldownText;
@@ -45,6 +58,9 @@ public class Tree : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        slowCooldown = 20;
+        stunCooldown = 30;
+        mitigationCooldown = 30;
         enemySpawnerScript = spawners.GetComponent<EnemySpawn>();
         health = 100;
         maxHealth = 100;
@@ -53,9 +69,20 @@ public class Tree : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(health <= 0)
+        {
+            health = 0;
+        }
+
+        if(health == 0)
+        {
+            SceneManagement.LoadScene("GameOverScene");
+        }
+
         if(health > maxHealth){
             health = maxHealth;
         }
+        goldText.text = gold.ToString();
         treeHealthSlider.maxValue = maxHealth;
         treeHealthSlider.value = health;
         healthText.text = health.ToString() + " / " + maxHealth.ToString();
@@ -100,45 +127,66 @@ public class Tree : MonoBehaviour
 
     public void SlowSkill()
     {
-        enemiesAreSlowed = true;
-        StartCoroutine(Timer(slowDuration, 1));
+        if(canSlow){
+            Debug.Log("Slow Skill Activated");
+            enemiesAreSlowed = true;
+            StartCoroutine(Timer((float)slowDuration, 1));
+            canSlow = false;
+        }
     }
     public void MitigationSkill()
     {
-        isMitigatingDamage = true;
-        StartCoroutine(Timer(mitigationDuration, 2));
+        if(canMitigate){
+            Debug.Log("Mitigation Skill Activated");
+            isMitigatingDamage = true;
+            Debug.Log("Bool: " + isMitigatingDamage);
+            StartCoroutine(Timer((float)mitigationDuration, 2));  
+            canMitigate = false;   
+        }
+       
     }
 
     public void StunSkill()
     {
-        enemiesAreStunned = true;
-        StartCoroutine(Timer(stunDuration, 3));
+        if(canStun){
+            Debug.Log("Stun Skill Activated");
+            enemiesAreStunned = true;
+            StartCoroutine(Timer(stunDuration, 3));
+            canStun = false;
+        }
     }
 
     public IEnumerator Cooldown(int purpose)
     {
+        Debug.Log("Cooldown Started");
         switch(purpose)
         {
             case 1:
                 for(int i = slowCooldown; i > 0; i--)
                 {
-                    slowCooldownText.text = i.ToString();
+                    slowCooldownText.text = "";
+                    slowCooldownText.text = i.ToString() + "s";
                     yield return new WaitForSeconds(1);
                 }
+                canSlow = true;
                 break;
             case 2:
                 for(int i = mitigationCooldown; i > 0; i--)
                 {
-                    mitigationCooldownText.text = i.ToString();
+                    mitigationCooldownText.text = "";
+                    mitigationCooldownText.text = i.ToString() + "s";
                     yield return new WaitForSeconds(1);
                 }
+                canMitigate = true;
                 break;
             case 3:
                 for(int i = stunCooldown; i > 0; i--)
                 {
-                    stunCooldownText.text = i.ToString();
+                    stunCooldownText.text = "";
+                    stunCooldownText.text = i.ToString() + "s";
                     yield return new WaitForSeconds(1);
                 }
+                canStun = true;
                 break;
         }
     }
@@ -149,16 +197,19 @@ public class Tree : MonoBehaviour
 
         if(purpose == 1)
         {
+            Debug.Log("Slow Skill Deactivated");
             enemiesAreSlowed = false;
         }
         else if(purpose == 2)
         {
+            Debug.Log("Mitigation Skill Deactivated");
             isMitigatingDamage = false;
         }
         else if(purpose == 3)
         {
+            Debug.Log("Stun Skill Deactivated");
             enemiesAreStunned = false;
         } 
-        Cooldown(purpose);
+        StartCoroutine(Cooldown(purpose));
     }
 }
