@@ -49,6 +49,11 @@ public class PauseMenu : MonoBehaviour
                 currentResolutionIndex = i;
             }
         }
+
+        if (filteredResolutions.Count == 0)
+        {
+            filteredResolutions.AddRange(resolutions);
+        }
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex = 0;
         resolutionDropdown.RefreshShownValue();
