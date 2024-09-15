@@ -49,7 +49,7 @@ public class ShopScript : MonoBehaviour
     
     public int nextHPUpgradeCost = 10;
     public int nextShieldUpgradeCost = 5;
-    public int nextLifestealUpgradeCost = 10;
+    public int nextLifestealUpgradeCost = 15;
     public int nextStunUpgradeCost = 15;
     public int nextMitigationUpgradeCost = 15;
     public int nextSlowUpgradeCost = 15;
@@ -74,7 +74,16 @@ public class ShopScript : MonoBehaviour
     public Slider stunSlider;
     public Slider mitigationSlider;
     public Slider slowSlider;
-   
+    
+    [Header("Cost Text")]
+    public TextMeshProUGUI hpCostText;
+    public TextMeshProUGUI shieldCostText;
+    public TextMeshProUGUI lifestealCostText;
+    public TextMeshProUGUI stunCostText;
+    public TextMeshProUGUI mitigationCostText;
+    public TextMeshProUGUI slowCostText;
+    public TextMeshProUGUI skuldCostText;
+    public TextMeshProUGUI verdandiCostText;
      
     void OnEnable()
     {
@@ -103,7 +112,8 @@ public class ShopScript : MonoBehaviour
         {
             if(ShopPageIndex < 0){
                 ShopPageIndex = 2;
-            }else if(ShopPageIndex > 2){
+            }
+            else if(ShopPageIndex > 2){
                 ShopPageIndex = 0;
             }
 
@@ -114,19 +124,22 @@ public class ShopScript : MonoBehaviour
                 MercenaryUpgrade.SetActive(false);
                 SkillUpgrade.SetActive(false);
 
-                if(treeScript.gold >= nextHPUpgradeCost && hpUpgradedAmount < 5){
+                if(hpUpgradedAmount < 5){
+                    hpCostText.text = "Cost: " + nextHPUpgradeCost.ToString();
                     buttonToUpgradeHP.SetActive(true);
                 } else{
                     buttonToUpgradeHP.SetActive(false);
                 }
 
-                if(treeScript.gold >= nextShieldUpgradeCost && shieldUpgradedAmount < 5){
+                if(shieldUpgradedAmount < 5){
+                    shieldCostText.text = "Cost: " + nextShieldUpgradeCost.ToString();
                     buttonToUpgradeShield.SetActive(true);
                 } else{
                     buttonToUpgradeShield.SetActive(false);
                 }   
 
-                if(treeScript.gold >= nextLifestealUpgradeCost && lifestealUpgradedAmount < 3){
+                if(lifestealUpgradedAmount < 3){
+                    lifestealCostText.text = "Cost: " + nextLifestealUpgradeCost.ToString();
                     buttonToUpgradeLifesteal.SetActive(true);
                 } else{
                     buttonToUpgradeLifesteal.SetActive(false);
@@ -138,18 +151,21 @@ public class ShopScript : MonoBehaviour
                 SkillUpgrade.SetActive(true);
                 MercenaryUpgrade.SetActive(false);
                 
-                if(treeScript.gold >= nextStunUpgradeCost && stunUpgradedAmount < 5){
+                if(stunUpgradedAmount < 5){
+                    stunCostText.text = "Cost: " + nextStunUpgradeCost.ToString();
                     buttonToUpgradeStun.SetActive(true);
                 } else{
                     buttonToUpgradeStun.SetActive(false);
                 }
-                if(treeScript.gold >= nextMitigationUpgradeCost && mitigationUpgradedAmount < 5){
+                if(mitigationUpgradedAmount < 5){
+                    mitigationCostText.text = "Cost: " + nextMitigationUpgradeCost.ToString();
                     buttonToUpgradeMitigation.SetActive(true);
                 } else{
                     buttonToUpgradeMitigation.SetActive(false);
                 }
 
-                if(treeScript.gold >= nextSlowUpgradeCost && slowUpgradedAmount < 5){
+                if(slowUpgradedAmount < 5){
+                    slowCostText.text = "Cost: " + nextSlowUpgradeCost.ToString();
                     buttonToUpgradeSlow.SetActive(true);
                 } else{
                     buttonToUpgradeSlow.SetActive(false);
@@ -161,13 +177,15 @@ public class ShopScript : MonoBehaviour
                 SkillUpgrade.SetActive(false);
                 MercenaryUpgrade.SetActive(true);
 
-                if(treeScript.gold >= 50 && !boughtVerdandi){
+                if(!boughtVerdandi){
+                    verdandiCostText.text = "Cost: 50";
                     buttonToBuyVerdandi.SetActive(true);
                 } else{
                     buttonToBuyVerdandi.SetActive(false);
                 }
 
-                if(treeScript.gold >= 100 && !boughtSkuld){
+                if(!boughtSkuld){
+                    skuldCostText.text = "Cost: 100";
                     buttonToBuySkuld.SetActive(true);
                 } else{
                     buttonToBuySkuld.SetActive(false);
@@ -183,31 +201,41 @@ public class ShopScript : MonoBehaviour
             case 0:
                 upgradeAmountInt = 10;
                 goldForHP = 10;
-                nextHPUpgradeCost = 35;
+                if(treeScript.gold > goldForHP){
+                    nextHPUpgradeCost = 35;
+                }
                 break;
 
             case 1:
                 upgradeAmountInt = 20;
                 goldForHP = 35;
-                nextHPUpgradeCost = 50;
+                if(treeScript.gold > goldForHP){
+                    nextHPUpgradeCost = 50;
+                }
                 break;
             
             case 2:
                 upgradeAmountInt = 30;
                 goldForHP = 50;
-                nextHPUpgradeCost = 70;
+                if(treeScript.gold > goldForHP){
+                    nextHPUpgradeCost = 70;
+                }
                 break;
             
             case 3:
                 upgradeAmountInt = 40;
                 goldForHP = 70;
-                nextHPUpgradeCost = 100;
+                if(treeScript.gold > goldForHP){
+                    nextHPUpgradeCost = 100;
+                }
                 break;
             
             case 4:
                 upgradeAmountInt = 50;
                 goldForHP = 100;
-                nextHPUpgradeCost = 9999999;
+                if(treeScript.gold > goldForHP){
+                    nextHPUpgradeCost = 9999999;
+                }
                 break;
         }
         if(treeScript.gold > goldForHP){
@@ -225,27 +253,37 @@ public class ShopScript : MonoBehaviour
             case 0:
                 addShield = 5;
                 goldForShield = 5;
-                nextShieldUpgradeCost = 25;
+                if(treeScript.gold > goldForShield){
+                    nextShieldUpgradeCost = 25;
+                }
                 break;
             case 1:
                 addShield = 15;
                 goldForShield = 25;
-                nextShieldUpgradeCost = 40;
+                if(treeScript.gold > goldForShield){
+                    nextShieldUpgradeCost = 40;
+                }
                 break;
             case 2:
                 addShield = 30;
                 goldForShield = 40;
-                nextShieldUpgradeCost = 60;
+                if(treeScript.gold > goldForShield){
+                    nextShieldUpgradeCost = 60;
+                }
                 break;
             case 3:
                 addShield = 50;
                 goldForShield = 60;
-                nextShieldUpgradeCost = 80;
+                if(treeScript.gold > goldForShield){
+                    nextShieldUpgradeCost = 80;
+                }
                 break;
             case 4:
                 addShield = 75;
                 goldForShield = 80;
-                nextShieldUpgradeCost = 9999999;
+                if(treeScript.gold > goldForShield){
+                    nextShieldUpgradeCost = 9999999;
+                }
                 break;
         }
         if(treeScript.gold > goldForShield){
@@ -262,18 +300,24 @@ public class ShopScript : MonoBehaviour
         switch (lifestealUpgradedAmount){
             case 0:
                 lifeSteal = 1;
-                goldForLifesteal = 10;
-                nextLifestealUpgradeCost = 15;
+                goldForLifesteal = 15;
+                if(treeScript.gold > goldForLifesteal){
+                    nextLifestealUpgradeCost = 20;
+                }
                 break;
             case 1:
                 lifeSteal = 3;
-                goldForLifesteal = 15;
-                nextLifestealUpgradeCost = 20;
+                goldForLifesteal = 20;
+                if(treeScript.gold > goldForLifesteal){
+                    nextLifestealUpgradeCost = 25;
+                }
                 break;
             case 2:
                 lifeSteal = 5;
-                goldForLifesteal = 20;
-                nextLifestealUpgradeCost = 9999999;
+                goldForLifesteal = 25;
+                if(treeScript.gold > goldForLifesteal){
+                    nextLifestealUpgradeCost = 9999999;
+                }
                 break;
         }
         if(treeScript.gold > goldForLifesteal){
@@ -292,27 +336,42 @@ public class ShopScript : MonoBehaviour
             case 0:
                 stunDuration = 1.5f;
                 goldForStun = 15;
-                nextStunUpgradeCost = 30;
+                if(treeScript.gold > goldForStun){
+                    nextStunUpgradeCost = 30;
+                }
+              
                 break;
             case 1:
                 stunDuration = 2.0f;
                 goldForStun = 30;
-                nextStunUpgradeCost = 50;
+                if(treeScript.gold > goldForStun){
+                    nextStunUpgradeCost = 50;
+                }
+                
                 break;
             case 2:
                 stunDuration = 2.5f;
                 goldForStun = 50;
-                nextStunUpgradeCost = 75;
+                if(treeScript.gold > goldForStun){
+                    nextStunUpgradeCost = 75;
+                }
+                
                 break;
             case 3:
                 stunDuration = 3.0f;
                 goldForStun = 75;
-                nextStunUpgradeCost = 100;
+                if(treeScript.gold > goldForStun){
+                    nextStunUpgradeCost = 100;
+                }
+                
                 break;
             case 4:
                 stunDuration = 4.0f;
                 goldForStun = 100;
-                nextStunUpgradeCost = 9999999;
+                if(treeScript.gold > goldForStun){
+                    nextStunUpgradeCost = 9999999;
+                }
+                
                 break;
         }
         if(treeScript.gold > goldForStun){
@@ -331,27 +390,42 @@ public class ShopScript : MonoBehaviour
             case 0:
                 mitigation = 5;
                 goldForMitigation = 15;
-                nextMitigationUpgradeCost = 20;
+                if(treeScript.gold > goldForMitigation){
+                    nextMitigationUpgradeCost = 20;
+                }
+                
                 break;
             case 1:
                 mitigation = 10;
                 goldForMitigation = 20;
-                nextMitigationUpgradeCost = 35;
+                if(treeScript.gold > goldForMitigation){
+                    nextMitigationUpgradeCost = 35;
+                }
+                
                 break;
             case 2:
                 mitigation = 20;
                 goldForMitigation = 35;
-                nextMitigationUpgradeCost = 45;
+                if(treeScript.gold > goldForMitigation){
+                    nextMitigationUpgradeCost = 45;
+                }
+                
                 break;
             case 3:
                 mitigation = 25;
                 goldForMitigation = 45;
-                nextMitigationUpgradeCost = 60;
+                if(treeScript.gold > goldForMitigation){
+                    nextMitigationUpgradeCost = 60;
+                }
+                
                 break;
             case 4:
                 mitigation = 30;
                 goldForMitigation = 60;
-                nextMitigationUpgradeCost = 9999999;
+                if(treeScript.gold > goldForMitigation){
+                    nextMitigationUpgradeCost = 9999999;
+                }
+                
                 break;
         }
         if(treeScript.gold > goldForMitigation){
@@ -370,27 +444,37 @@ public class ShopScript : MonoBehaviour
             case 0:
                 slowAmount = 0.2f;
                 goldForSlow = 15;
-                nextSlowUpgradeCost = 30;
+                if(treeScript.gold > goldForSlow){
+                    nextSlowUpgradeCost = 30;
+                }
                 break;
             case 1:
                 slowAmount = 0.25f;
                 goldForSlow = 30;
-                nextSlowUpgradeCost = 45;
+                if(treeScript.gold > goldForSlow){
+                    nextSlowUpgradeCost = 45;
+                }
                 break;
             case 2:
                 slowAmount = 0.3f;
                 goldForSlow = 45;
-                nextSlowUpgradeCost = 55;
+                if(treeScript.gold > goldForSlow){
+                    nextSlowUpgradeCost = 55;
+                }
                 break;
             case 3:
                 slowAmount = 0.35f;
                 goldForSlow = 55;
-                nextSlowUpgradeCost = 80;
+                if(treeScript.gold > goldForSlow){
+                    nextSlowUpgradeCost = 80;
+                }
                 break;
             case 4:
                 slowAmount = 0.4f;
                 goldForSlow = 80;
-                nextSlowUpgradeCost = 9999999;
+                if(treeScript.gold > goldForSlow){
+                    nextSlowUpgradeCost = 9999999;
+                }
                 break;
         }
 
@@ -426,6 +510,7 @@ public class ShopScript : MonoBehaviour
             Skuld.transform.position = new Vector3(0, 0, 0);
             Mercenary mercenaryScript = Skuld.GetComponent<Mercenary>();
             mercenaryScript.spawnerScript = enemySpawn;
+            mercenaryScript.sfxSource = enemySpawn.sfxSource;
         }
         if(buyingVerdandi){
             GameObject Verdandi = Instantiate(VerdandiPrefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -434,6 +519,8 @@ public class ShopScript : MonoBehaviour
             Verdandi.transform.position = new Vector3(0, 0, 0);
             Mercenary mercenaryScript = Verdandi.GetComponent<Mercenary>();
             mercenaryScript.spawnerScript = enemySpawn;
+            mercenaryScript.sfxSource = enemySpawn.sfxSource;
+            mercenaryScript.swordClip = enemySpawn.swordClip;
         }
         
         if(hasBoughtSlow){

@@ -10,6 +10,7 @@ using System.Linq;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public GameObject mobs;
     public GameObject shopPanel;
     public int waveValue;
     public Tree treeScript;                     // Reference to the tree script
@@ -28,6 +29,8 @@ public class EnemySpawn : MonoBehaviour
     public List<string> activeWords;
     public bool deadByMerc;
     public int randomInt;
+    public AudioSource sfxSource;
+    public AudioClip swordClip;
     // Start is called before the first frame update
     void Start()
     {
@@ -202,61 +205,61 @@ public class EnemySpawn : MonoBehaviour
                 break;
             
             case 4:
-                waveValue = 25;
+                waveValue = 20;
                 randomizeEnemyCategory(waveValue);
                 activeWords = letterWords[4];
                 break;
 
             case 5:
-                waveValue = 30;
+                waveValue = 25;
                 randomizeEnemyCategory(waveValue);
                 activeWords = letterWords[5];
                 break;
 
             case 6:
-                waveValue = 35;
+                waveValue = 30;
                 randomizeEnemyCategory(waveValue);
                 activeWords = letterWords[6];
                 break;
 
             case 7:
-                waveValue = 40;
+                waveValue = 35;
                 randomizeEnemyCategory(waveValue);
                 activeWords = letterWords[7];
                 break;
             
             case 8:
-                waveValue = 45;
+                waveValue = 40;
                 randomizeEnemyCategory(waveValue);
                 activeWords = letterWords[8];
                 break;
             
             case 9:
-                waveValue = 50;
+                waveValue = 45;
                 randomizeEnemyCategory(waveValue);
                 activeWords = letterWords[9];
                 break;
 
             case 10:
-                waveValue = 55;
+                waveValue = 50;
                 randomizeEnemyCategory(waveValue);
                 activeWords = letterWords[10];
                 break;
             
             case 11:
-                waveValue = 60;
+                waveValue = 50;
                 randomizeEnemyCategory(waveValue);
                 activeWords = letterWords[11];
                 break; 
             
             case 12:
-                waveValue = 70;
+                waveValue = 50;
                 randomizeEnemyCategory(waveValue);
                 activeWords = letterWords[12];
                 break;
             
             case 13:
-                SceneManager.LoadScene("WinScreen");
+                SceneManager.LoadScene("WinScene");
                 break;
 
             default:
@@ -293,6 +296,7 @@ public class EnemySpawn : MonoBehaviour
         
 
         GameObject enemyObject = Instantiate(enemyPrefabs[randomIndex], spawnPosition, Quaternion.identity);
+        enemyObject.transform.parent = mobs.transform;
         Enemy enemyScript = enemyObject.GetComponent<Enemy>();
         enemyScript.enemySpawnScript = this;
 
@@ -365,8 +369,9 @@ public class EnemySpawn : MonoBehaviour
     {
         if(!deadByMerc){
             StartCoroutine(UrdSlashes());
+            ClearTypedWord();
         } 
-        ClearTypedWord();       // Clear the typed word 
+       // Clear the typed word 
         enemy.canMove = false;
         Animator animator = enemy.GetComponent<Animator>();
         animator.SetBool("dead", true);
@@ -389,6 +394,7 @@ public class EnemySpawn : MonoBehaviour
 
     public IEnumerator UrdSlashes(){
         treeScript.urdAnimator.SetBool("canAttack", true);
+        sfxSource.PlayOneShot(swordClip);
         yield return new WaitForSeconds(1.2f);
         treeScript.urdAnimator.SetBool("canAttack", false);
     }

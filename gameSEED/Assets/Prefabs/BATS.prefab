@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8779135040177577605}
   - component: {fileID: 20179694505696681}
   - component: {fileID: 1564005268995989124}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1564005268995989124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 3478744146669517202}
   - component: {fileID: 7010421565151740769}
   - component: {fileID: 5440380955789055340}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: BATS
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 4360005631623171951}
   - component: {fileID: 476687037205895151}
   - component: {fileID: 275671955538568268}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,8 +344,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 6, y: 2}
+  m_AnchoredPosition: {x: -0.1091, y: 0.29}
+  m_SizeDelta: {x: 8.2755, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &476687037205895151
 CanvasRenderer:

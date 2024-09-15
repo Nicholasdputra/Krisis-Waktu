@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3835224712910441435}
   - component: {fileID: 8548298782775887681}
   - component: {fileID: 4873256962043056031}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: GHOST
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 412343122446722841}
   - component: {fileID: 5904011349827581210}
   - component: {fileID: 8853472189574549921}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 4048340019102834801}
   - component: {fileID: 8387492014520506425}
   - component: {fileID: 3258340310390964736}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,8 +344,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 6, y: 2}
+  m_AnchoredPosition: {x: -0.241, y: -0.49}
+  m_SizeDelta: {x: 6.5907, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8387492014520506425
 CanvasRenderer:

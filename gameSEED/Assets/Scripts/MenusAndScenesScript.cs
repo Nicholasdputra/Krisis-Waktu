@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEngine.UI;
 
 public class MenusAndScenesScript : MonoBehaviour
 {
@@ -17,15 +18,26 @@ public class MenusAndScenesScript : MonoBehaviour
     private float currentRefreshRate;
     private int currentResolutionIndex = 0;
 
+    public AudioSource bgmSource;
+    public AudioSource sfxSource;
+    public AudioClip bgmClip;
+    public AudioClip clickClip;
+
+    public Slider musicSlider;
+    public Slider sfxSlider;
+
+
     //Start Game
     public void StartGame()
     {
+        sfxSource.PlayOneShot(clickClip);
         SceneManager.LoadScene("GameScene");
     }
 
     //Options
     public void OpenOptions()
     {
+        sfxSource.PlayOneShot(clickClip);
         optionsPanel.SetActive(true);
         mainMenuButtonsPanel.SetActive(false);
     }
@@ -51,6 +63,7 @@ public class MenusAndScenesScript : MonoBehaviour
 
     public void CloseOptions()
     {
+        sfxSource.PlayOneShot(clickClip);
         optionsPanel.SetActive(false);
         mainMenuButtonsPanel.SetActive(true);
     }
@@ -58,6 +71,7 @@ public class MenusAndScenesScript : MonoBehaviour
     //Quit
     public void QuitGame()
     {
+        sfxSource.PlayOneShot(clickClip);
         Application.Quit();
     }
 
@@ -65,6 +79,19 @@ public class MenusAndScenesScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bgmSource.Play();
+        bgmSource.loop = true;
+        // Initialize the sliders with saved values (or default 1.0)
+        musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1.0f);
+        sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
+
+        // Attach listener functions to the sliders
+        musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
+        sfxSlider.onValueChanged.AddListener(OnSFXSliderValueChanged);
+
+        // Set initial volume based on saved values
+        bgmSource.volume = musicSlider.value;
+        sfxSource.volume = sfxSlider.value;
         optionsPanel.SetActive(false);
         mainMenuButtonsPanel.SetActive(true);
 
@@ -120,5 +147,17 @@ public class MenusAndScenesScript : MonoBehaviour
             Debug.Log("Current Refresh Rate: " + currentRefreshRate.ToString("0.##") + " Hz");
             Debug.LogError("No resolutions available for the current refresh rate.");
         }
+    }
+    private void OnMusicSliderValueChanged(float value)
+    {
+        bgmSource.volume = value;
+        PlayerPrefs.SetFloat("MusicVolume", value); // Save the volume setting
+    }
+
+    // Update SFX volume when slider changes
+    private void OnSFXSliderValueChanged(float value)
+    {
+        sfxSource.volume = value;
+        PlayerPrefs.SetFloat("SFXVolume", value); // Save the volume setting
     }
 }

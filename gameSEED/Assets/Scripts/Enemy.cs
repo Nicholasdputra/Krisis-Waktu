@@ -40,30 +40,30 @@ public class Enemy : MonoBehaviour
         switch (category)
         {
             case 1:
-                speed = 1f;
-                damageToTree = 10;
-                goldDrop = 10;
+                speed = 1.8f;
+                damageToTree = 5;
+                goldDrop = 1;
 
                 break;
 
             case 2:
-                speed = 2f;
-                damageToTree = 25;
-                goldDrop = 30;
+                speed = 1.3f;
+                damageToTree = 15;
+                goldDrop = 2;
 
                 break;
 
             case 3:
-                speed = 2f;
-                damageToTree = 50;
-                goldDrop = 60;
+                speed = 0.8f;
+                damageToTree = 25;
+                goldDrop = 3;
 
                 break;
 
             case 4:
-                speed = 0.5f;
-                damageToTree = 100;
-                goldDrop = 100;
+                speed = 0.6f;
+                damageToTree = 50;
+                goldDrop = 5;
                 toType2 = enemySpawnScript.GetRandomWord();
                 displayWord.text += " " + toType2;
                 break;

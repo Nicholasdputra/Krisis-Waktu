@@ -64,9 +64,19 @@ public class Tree : MonoBehaviour
     public TextMeshProUGUI stunCooldownText;
     public TextMeshProUGUI mitigationCooldownText;
 
+    public AudioSource audioSource;
+    public AudioClip slowSound;
+    public AudioClip mitigationSound;
+    public AudioClip stunSound;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        stun.SetActive(false);
+        slow.SetActive(false);
+        mitigate.SetActive(false);
+
         urdAnimator = Urd.GetComponent<Animator>();
         urdAnimator.SetBool("canAttack", false);
         slowCooldown = 20;
@@ -144,6 +154,7 @@ public class Tree : MonoBehaviour
         if(canSlow){
             Debug.Log("Slow Skill Activated");
             enemiesAreSlowed = true;
+            audioSource.PlayOneShot(slowSound);
             StartCoroutine(Timer((float)slowDuration, 1));
             canSlow = false;
         }
@@ -153,7 +164,7 @@ public class Tree : MonoBehaviour
         if(canMitigate){
             Debug.Log("Mitigation Skill Activated");
             isMitigatingDamage = true;
-            Debug.Log("Bool: " + isMitigatingDamage);
+            audioSource.PlayOneShot(mitigationSound);
             StartCoroutine(Timer((float)mitigationDuration, 2));  
             canMitigate = false;   
         }
@@ -165,6 +176,7 @@ public class Tree : MonoBehaviour
         if(canStun){
             Debug.Log("Stun Skill Activated");
             enemiesAreStunned = true;
+            audioSource.PlayOneShot(stunSound);
             StartCoroutine(Timer(stunDuration, 3));
             canStun = false;
         }

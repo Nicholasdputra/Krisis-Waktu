@@ -107,6 +107,8 @@ MonoBehaviour:
   isVerdandi: 0
   isSkuld: 1
   animator: {fileID: 1666957696161212579}
+  sfxSource: {fileID: 0}
+  swordClip: {fileID: 8300000, guid: e43e944eddaeb86429d98dd81138a0d5, type: 3}
 --- !u!61 &8381617721224500109
 BoxCollider2D:
   m_ObjectHideFlags: 0

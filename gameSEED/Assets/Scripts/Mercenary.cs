@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 public class Mercenary : MonoBehaviour
 {
     public EnemySpawn spawnerScript;
@@ -14,6 +15,9 @@ public class Mercenary : MonoBehaviour
     public bool isSkuld;
     public Animator animator;
     private bool isFacingRight = true;
+    public AudioSource sfxSource;
+    public AudioClip swordClip;
+    
     private void Start()
     {
         mainCamera = Camera.main;  // Get reference to the main camera
@@ -148,6 +152,7 @@ public class Mercenary : MonoBehaviour
     public IEnumerator SkuldSlashes(){
         spawnerScript.treeScript.skuldAnimator.SetBool("attack", true);
         yield return new WaitForSeconds(1.2f);
+        sfxSource.PlayOneShot(swordClip);
         spawnerScript.treeScript.skuldAnimator.SetBool("attack", false);
         spawnerScript.DestroyEnemy(targetEnemy, true);
     }
@@ -155,6 +160,7 @@ public class Mercenary : MonoBehaviour
     public IEnumerator VerdandiSlashes(){
         spawnerScript.treeScript.verdandiAnimator.SetBool("attack", true);
         yield return new WaitForSeconds(1.2f);
+        sfxSource.PlayOneShot(swordClip);
         spawnerScript.treeScript.verdandiAnimator.SetBool("attack", false);
         spawnerScript.DestroyEnemy(targetEnemy, true);
     }
