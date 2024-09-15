@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7625770428966949332}
   - component: {fileID: 2955356306489266042}
   - component: {fileID: 6445269896576079449}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Slime Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 297796176, guid: 4573eefc0a2315e4dbed7516a7e345c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -146,6 +146,7 @@ MonoBehaviour:
   lane: 0
   category: 0
   speed: 0
+  canMove: 0
   goldDrop: 0
   toType1: 
   toType2: 
@@ -219,7 +220,7 @@ GameObject:
   - component: {fileID: 6502390553604351723}
   - component: {fileID: 8115541526853732418}
   - component: {fileID: 9190821182325341199}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +321,7 @@ GameObject:
   - component: {fileID: 6073738768509455608}
   - component: {fileID: 3221682769878802370}
   - component: {fileID: 8348147424246816981}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

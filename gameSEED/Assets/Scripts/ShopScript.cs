@@ -421,12 +421,16 @@ public class ShopScript : MonoBehaviour
     public void StartRound(){
         if(buyingSkuld){
             GameObject Skuld = Instantiate(SkuldPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            treeScript.Skuld = Skuld;
+            treeScript.skuldAnimator = Skuld.GetComponent<Animator>();
             Skuld.transform.position = new Vector3(0, 0, 0);
             Mercenary mercenaryScript = Skuld.GetComponent<Mercenary>();
             mercenaryScript.spawnerScript = enemySpawn;
         }
         if(buyingVerdandi){
             GameObject Verdandi = Instantiate(VerdandiPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            treeScript.Verdandi = Verdandi;
+            treeScript.verdandiAnimator = Verdandi.GetComponent<Animator>();
             Verdandi.transform.position = new Vector3(0, 0, 0);
             Mercenary mercenaryScript = Verdandi.GetComponent<Mercenary>();
             mercenaryScript.spawnerScript = enemySpawn;

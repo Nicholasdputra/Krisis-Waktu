@@ -10,7 +10,15 @@ public class Tree : MonoBehaviour
     public int gold;
     public int health;
     public int maxHealth;
-    
+
+    [Header("Fate Sisters")]
+    public GameObject Urd;
+    public Animator urdAnimator;
+    public GameObject Verdandi;
+    public Animator verdandiAnimator;
+    public GameObject Skuld;
+    public Animator skuldAnimator;
+
     [Header("References to UI Elements")]
     public Slider treeHealthSlider; // Reference to the slider representing the tree's health
     public TextMeshProUGUI healthText; // Reference to the text displaying the tree's health
@@ -59,6 +67,8 @@ public class Tree : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        urdAnimator = Urd.GetComponent<Animator>();
+        urdAnimator.SetBool("canAttack", false);
         slowCooldown = 20;
         stunCooldown = 30;
         mitigationCooldown = 30;
@@ -70,6 +80,7 @@ public class Tree : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(health <= 0)
         {
             health = 0;
@@ -87,8 +98,10 @@ public class Tree : MonoBehaviour
         treeHealthSlider.maxValue = maxHealth;
         treeHealthSlider.value = health;
         healthText.text = health.ToString() + " / " + maxHealth.ToString();
+
         if(enemySpawnerScript.waveValue == 0)
         {
+            urdAnimator.SetBool("canAttack", false);
             shopPanel.SetActive(true); 
         }
 

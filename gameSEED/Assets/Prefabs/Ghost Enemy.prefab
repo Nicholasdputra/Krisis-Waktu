@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1240556859727397758}
   - component: {fileID: 5069730221329415268}
   - component: {fileID: 4487011689824946142}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ghost Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: -528236672, guid: 24a26746673cb6e4398115774734f155, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -146,6 +146,7 @@ MonoBehaviour:
   lane: 0
   category: 0
   speed: 0
+  canMove: 0
   goldDrop: 0
   toType1: 
   toType2: 
@@ -219,7 +220,7 @@ GameObject:
   - component: {fileID: 7871443073956004966}
   - component: {fileID: 3702778414144642966}
   - component: {fileID: 8321352086205625311}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +321,7 @@ GameObject:
   - component: {fileID: 2514108977741186115}
   - component: {fileID: 7398726632284343200}
   - component: {fileID: 4476541383541081463}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

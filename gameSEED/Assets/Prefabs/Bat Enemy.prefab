@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2552965856520885934}
   - component: {fileID: 1022874779893488816}
   - component: {fileID: 3298806323957530735}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 3677609043897408190}
   - component: {fileID: 8338809196457661395}
   - component: {fileID: 8971337916734975049}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Bat Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 1309967919, guid: ae669bd813899f94189f7586b348a195, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -248,6 +248,7 @@ MonoBehaviour:
   lane: 0
   category: 0
   speed: 0
+  canMove: 0
   goldDrop: 0
   toType1: 
   toType2: 
@@ -320,7 +321,7 @@ GameObject:
   - component: {fileID: 5480396824333936758}
   - component: {fileID: 126673000108256043}
   - component: {fileID: 1772897965179309043}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

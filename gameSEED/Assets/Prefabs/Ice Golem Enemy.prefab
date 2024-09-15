@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6929170636248403504}
   - component: {fileID: 7967722734153121164}
   - component: {fileID: 890688204981224769}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ice Golem Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 1668116334, guid: db20cfbcb78afb24c9ebf7f43614273b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -146,6 +146,7 @@ MonoBehaviour:
   lane: 0
   category: 0
   speed: 0
+  canMove: 0
   goldDrop: 0
   toType1: 
   toType2: 
@@ -219,7 +220,7 @@ GameObject:
   - component: {fileID: 1121990155425073940}
   - component: {fileID: 8927821028496556960}
   - component: {fileID: 7071059124056278516}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +321,7 @@ GameObject:
   - component: {fileID: 1000638318998226962}
   - component: {fileID: 3282009999540601418}
   - component: {fileID: 3550225235005946152}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

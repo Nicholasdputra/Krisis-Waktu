@@ -119,11 +119,13 @@ public class Mercenary : MonoBehaviour
                 FlipSprite(); // Flip the sprite to face the enemy
             }
         }
-        yield return new WaitForSeconds(1f);
-        spawnerScript.spawnedEnemies.Remove(targetEnemy);    // Remove from active enemy list
-        Destroy(targetEnemy.gameObject);                    // Destroy enemy object
-        spawnerScript.treeScript.gold += targetEnemy.goldDrop / 2;           // Add gold to player's gold count
-        spawnerScript.currentCount--;
+        
+        if(isSkuld){
+            StartCoroutine(SkuldSlashes());
+        } else if(isVerdandi){
+            StartCoroutine(VerdandiSlashes());
+        }
+
         if (targetEnemy != null)
         {
             bool enemyIsBehindAfterAttack = (targetEnemy.transform.position.x < transform.position.x && !isFacingRight) ||
@@ -134,8 +136,21 @@ public class Mercenary : MonoBehaviour
                 FlipSprite(); // Flip the sprite back to its original orientation
             }
         }
-        animator.SetBool("attack", false);
         yield return new WaitForSeconds(7f);
         isWaiting = false;
+    }
+
+    public IEnumerator SkuldSlashes(){
+        spawnerScript.treeScript.skuldAnimator.SetBool("attack", true);
+        yield return new WaitForSeconds(1.2f);
+        spawnerScript.treeScript.skuldAnimator.SetBool("attack", false);
+        spawnerScript.DestroyEnemy(targetEnemy, true);
+    }
+
+    public IEnumerator VerdandiSlashes(){
+        spawnerScript.treeScript.verdandiAnimator.SetBool("attack", true);
+        yield return new WaitForSeconds(1.2f);
+        spawnerScript.treeScript.verdandiAnimator.SetBool("attack", false);
+        spawnerScript.DestroyEnemy(targetEnemy, true);
     }
 }

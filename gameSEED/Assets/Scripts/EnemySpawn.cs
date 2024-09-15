@@ -26,6 +26,7 @@ public class EnemySpawn : MonoBehaviour
     public List<string> poolOfWords;  // list of all possible words
     public List<string>[] letterWords;  // list of all possible words
     public List<string> activeWords;
+    public bool deadByMerc;
 
     // Start is called before the first frame update
     void Start()
@@ -339,9 +340,10 @@ public class EnemySpawn : MonoBehaviour
             if (enemy.toType1.ToLower() == typedWord) // Case-insensitive comparison
             {
                 if(enemy.toType2 == null){
-                    DestroyEnemy(enemy);
+                    DestroyEnemy(enemy, false);
                     break;
                 } else{
+                    StartCoroutine(UrdSlashes());
                     enemy.displayWord.text = enemy.toType2;
                     enemy.toType1 = enemy.toType2;
                     enemy.toType2 = null;
@@ -357,13 +359,35 @@ public class EnemySpawn : MonoBehaviour
     }
 
     // Function to destroy enemy
-    public void DestroyEnemy(Enemy enemy)
+    public void DestroyEnemy(Enemy enemy, bool deadByMerc)
     {
+        if(!deadByMerc){
+            StartCoroutine(UrdSlashes());
+        } 
+        ClearTypedWord();       // Clear the typed word 
+        enemy.canMove = false;
+        Animator animator = enemy.GetComponent<Animator>();
+        animator.SetBool("dead", true);
+        StartCoroutine(DeathAnimation(enemy, false));
+    }
+
+    public IEnumerator DeathAnimation(Enemy enemy, bool deadByMerc)
+    {
+        yield return new WaitForSeconds(1f);
         treeScript.health += treeScript.lifeSteal;
         spawnedEnemies.Remove(enemy);    // Remove from active enemy list
-        treeScript.gold += enemy.goldDrop;
+        if(deadByMerc){
+            treeScript.gold += enemy.goldDrop/2;
+        } else{
+            treeScript.gold += enemy.goldDrop;
+        }
         Destroy(enemy.gameObject);       // Destroy enemy object
         currentCount--;
-        ClearTypedWord();       // Clear the typed word 
+    }
+
+    public IEnumerator UrdSlashes(){
+        treeScript.urdAnimator.SetBool("canAttack", true);
+        yield return new WaitForSeconds(1.2f);
+        treeScript.urdAnimator.SetBool("canAttack", false);
     }
 }
