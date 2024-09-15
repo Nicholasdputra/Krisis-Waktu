@@ -8365,13 +8365,18 @@ MonoBehaviour:
   currentRound: 0
   timerTillNextSpawn: 0
   spawnpoints: []
-  enemyPrefab: {fileID: 6616381890028018870, guid: 63282cdf3af983a4abc03a1b1f2be2d2, type: 3}
+  enemyPrefabs:
+  - {fileID: 9005445856844062072, guid: 19406fa9c4eaa7545a69d5a00c8513d0, type: 3}
+  - {fileID: 3399406570608805209, guid: 7db54414b903d734f880beae15c361d2, type: 3}
+  - {fileID: 2143280968988015312, guid: e44096aaf8a5b264d9c1b81b940471e2, type: 3}
+  - {fileID: 6616381890028018870, guid: 63282cdf3af983a4abc03a1b1f2be2d2, type: 3}
   toSpawn: 
   currentCount: 0
   spawnedEnemies: []
   poolOfWords: []
   activeWords: []
   deadByMerc: 0
+  randomInt: 0
 --- !u!212 &1107991246
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12740,6 +12745,10 @@ MonoBehaviour:
   maxHealth: 0
   Urd: {fileID: 682462949}
   urdAnimator: {fileID: 0}
+  Verdandi: {fileID: 0}
+  verdandiAnimator: {fileID: 0}
+  Skuld: {fileID: 0}
+  skuldAnimator: {fileID: 0}
   treeHealthSlider: {fileID: 1703711326}
   healthText: {fileID: 1311612368}
   goldText: {fileID: 1308921811}

@@ -23,6 +23,10 @@ public class Mercenary : MonoBehaviour
     {
         DetectEnemies();
         MoveToEnemy();
+        if(targetEnemy == null)
+        {
+            DetectEnemies();
+        }
     }
 
     // Detect the nearest enemy with the "Enemy" tag that is on screen
@@ -138,6 +142,7 @@ public class Mercenary : MonoBehaviour
         }
         yield return new WaitForSeconds(7f);
         isWaiting = false;
+        
     }
 
     public IEnumerator SkuldSlashes(){
