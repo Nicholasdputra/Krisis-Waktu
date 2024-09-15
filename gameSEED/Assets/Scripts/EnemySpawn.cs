@@ -19,7 +19,7 @@ public class EnemySpawn : MonoBehaviour
     public int currentRound;                    // current round number
     public int timerTillNextSpawn;              // timer for spawning enemies
     [SerializeField] Transform[] spawnpoints;
-    [SerializeField] GameObject enemyPrefab;
+    public GameObject[] enemyPrefabs;
     [SerializeField] List<int> toSpawn;         // list of enemies to spawn (put in the ints for the categories)
     public int currentCount;    // how many enemies are on the screen right now
     public List<Enemy> spawnedEnemies = new List<Enemy>();     // List to keep track of spawned enemies
@@ -27,7 +27,7 @@ public class EnemySpawn : MonoBehaviour
     public List<string>[] letterWords;  // list of all possible words
     public List<string> activeWords;
     public bool deadByMerc;
-
+    public int randomInt;
     // Start is called before the first frame update
     void Start()
     {
@@ -153,7 +153,6 @@ public class EnemySpawn : MonoBehaviour
     }
 
     void randomizeEnemyCategory(int waveValue){
-        int randomInt;
         while (waveValue > 0){
             if(waveValue > 3){
                 randomInt = Random.Range(1, 5);
@@ -277,7 +276,9 @@ public class EnemySpawn : MonoBehaviour
         // Get a random spawnpoint
         Vector3 spawnPosition;
         bool isTooClose;
-        do{
+        int randomIndex = Random.Range(0, enemyPrefabs.Length);
+        do
+        {
             isTooClose = false;
             spawnPosition = new Vector3(this.transform.position.x, Random.Range(-4, 4) + (Random.Range(0,10) / 10), 0);
             foreach (var enemy in spawnedEnemies)
@@ -290,7 +291,8 @@ public class EnemySpawn : MonoBehaviour
             }
         } while(isTooClose);
         
-        GameObject enemyObject = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+        GameObject enemyObject = Instantiate(enemyPrefabs[randomIndex], spawnPosition, Quaternion.identity);
         Enemy enemyScript = enemyObject.GetComponent<Enemy>();
         enemyScript.enemySpawnScript = this;
 
