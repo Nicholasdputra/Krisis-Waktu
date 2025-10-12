@@ -12,6 +12,7 @@
 ##  Scripts and Features
 
 A lot of feature in the game like typing, shopping, power ups, npc and so much more can be done thanks to tons of scripts that has been implemented to the game.<br>
+
 Here are some of the main mechanic in this game
 |  Script       | Description                                                  |
 | ------------------- | ------------------------------------------------------------ |
@@ -25,7 +26,7 @@ Here are some of the main mechanic in this game
 <br>
 
 ## About
-Yggdrasils Rebirth is a typing game that test the player comprehension skills and typing skill as it has runic text in it. 
+Yggdrasils Rebirth is a typing game that test the player comprehension skills and typing skill as it has runic text in it. Player are tasked with defending the tree of yggdrasil that is in the process of recovering. However this enemy contains runic language in them which player need to type in to kill.
 <br>
 
 ## Developer & Contributions
