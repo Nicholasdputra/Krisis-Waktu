@@ -30,7 +30,7 @@ Yggdrasils Rebirth is a typing game that test the player comprehension skills an
 <br>
 
 ## Developer & Contributions
-- Nhoel Goei (Game Programmer)
+- Nhoel Goei (NPC Behavior, Typing mechanic, skills mechanic programming)
 - Nicholas Dwi Putra (Game Programmer)
 - Muhammad Daffa Alghifari (Game Programmer)
 - Raditya Daryl Raspati(Game Designer)
