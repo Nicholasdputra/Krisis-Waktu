@@ -41,7 +41,7 @@ Yggdrasils Rebirth is a typing game that test the player comprehension skills an
 <br>
 
 ```
-├── Krisis-Waktu                      # Contain everything needed for Please Survive to works.
+├── Krisis-Waktu                      # Contain everything needed for Yggdrasils Rebirth to works.
    ├── .vscode                        # Contains configuration files for Visual Studio Code (VSCode) when it's used as the code editor for the project.
       ├── extensions.json             # Contains settings and configurations for debugging, code formatting, and IntelliSense. This folder is related to Visual Studio Code integration.
       ├── launch.json                 # Contains the configuration necessary to start debugging Unity C# scripts within VSCode.                     
@@ -51,7 +51,7 @@ Yggdrasils Rebirth is a typing game that test the player comprehension skills an
       ├── Mob                         # Contains all animation clip and animator controller for the enemy.
       ├── Prefabs                     # Contains every pre-configured, reusable game object that can be instantiated in the game scene.
       ├── Scenes                      # Contains all scenes that exist in the game for it to interconnected with each other.
-      ├── Script                      # Contains all scripts needed to make the gane get goings like PlayerMovement scripts.
+      ├── Script                      # Contains all scripts needed to make the gane get goings like EnemySpawn scripts.
       ├── Sound                       # Contains every sound used for the game like music and sound effects.
       ├── Sprite                      # Contains all the game art like the sprites, background, even the character.
       ├── Texts                       # Contains Font that is used in the game.
